@@ -1,4 +1,5 @@
 # import gzip
+# import zipfile
 # import json
 # import torch
 # from torch_geometric.data import Dataset, Data
@@ -22,8 +23,9 @@
 #     def loadGraphs(path):
 #         print(f"Loading graphs from {path}...")
 #         print("This may take a few minutes, please wait...")
-#         with gzip.open(path, "rt", encoding="utf-8") as f:
-#             graphs_dicts = json.load(f)
+#         with zipfile.ZipFile(path, "rt", encoding="utf-8") as zip_ref:
+#             with zip_ref.open(inner_filename) as f:
+#                 graphs_dicts = json.load(f)
 #         graphs = []
 #         for graph_dict in tqdm(graphs_dicts, desc="Processing graphs", unit="graph"):
 #             graphs.append(dictToGraphObject(graph_dict))
