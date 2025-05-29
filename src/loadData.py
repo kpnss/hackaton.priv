@@ -43,6 +43,7 @@
 
 
 import gzip
+import zipfile
 import json
 import torch
 from torch_geometric.data import Dataset, Data
