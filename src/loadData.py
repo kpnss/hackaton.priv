@@ -61,9 +61,10 @@ class GraphDataset(Dataset):
         return dictToGraphObject(self.graphs_dicts[idx])
 
     def _count_graphs(self):
-        with gzip.open(self.raw, "rt", encoding="utf-8") as f:
-            graphs_dicts = json.load(f)  # Load full JSON array without keeping references
-            return len(graphs_dicts),graphs_dicts  # Return number of graphs
+        with zipfile.ZipFile(self.raw, 'r') as zip_ref:
+            with zip_ref.open('graphs.json') as f:  # Sostituisci con il nome reale del file nel .zip
+                graphs_dicts = json.load(f)
+                return len(graphs_dicts), graphs_dicts
 
 def dictToGraphObject(graph_dict):
     edge_index = torch.tensor(graph_dict["edge_index"], dtype=torch.long)
